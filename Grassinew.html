@@ -1,0 +1,1904 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grassi IT | Sector Tecnología</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --bg: #04080f;
+        --surface: #080e1c;
+        --card: #0c1528;
+        --card2: #101e38;
+        --blue: #00c8ff;
+        --blue2: #0095cc;
+        --gold: #ffb700;
+        --gold2: #cc8e00;
+        --text: #dde6f7;
+        --muted: #7a90b5;
+        --border: rgba(0, 200, 255, 0.12);
+        --border-gold: rgba(255, 183, 0, 0.2);
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Outfit", sans-serif;
+        overflow-x: hidden;
+      }
+
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 200;
+        padding: 1.1rem 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: all 0.4s;
+      }
+      nav.scrolled {
+        background: rgba(4, 8, 15, 0.97);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        padding: 0.8rem 3rem;
+      }
+      .nav-logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.9rem;
+        letter-spacing: 3px;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .nav-logo .dot {
+        color: var(--blue);
+        font-size: 2.4rem;
+        line-height: 0;
+        margin-top: 4px;
+      }
+      .nav-logo em {
+        color: var(--gold);
+        font-style: normal;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2.5rem;
+        list-style: none;
+      }
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 0.78rem;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        font-weight: 600;
+        transition: color 0.2s;
+        position: relative;
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: var(--blue);
+        transform: scaleX(0);
+        transition: transform 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--blue);
+      }
+      .nav-links a:hover::after {
+        transform: scaleX(1);
+      }
+      .nav-cta {
+        background: var(--blue);
+        color: var(--bg);
+        padding: 0.55rem 1.4rem;
+        border-radius: 8px;
+        font-family: "Outfit", sans-serif;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.2s;
+      }
+      .nav-cta:hover {
+        background: var(--text);
+        transform: translateY(-1px);
+      }
+
+      /* HERO */
+      #hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+        padding: 7rem 2rem 5rem;
+      }
+      .hero-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(0, 200, 255, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 200, 255, 0.035) 1px, transparent 1px);
+        background-size: 60px 60px;
+      }
+      .hero-glow {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 80% 60% at 15% 60%,
+            rgba(0, 150, 255, 0.07) 0%,
+            transparent 70%
+          ),
+          radial-gradient(
+            ellipse 60% 50% at 85% 20%,
+            rgba(255, 183, 0, 0.05) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse 50% 40% at 55% 85%,
+            rgba(0, 200, 255, 0.04) 0%,
+            transparent 50%
+          );
+      }
+      .hero-scan {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--blue),
+          transparent
+        );
+        animation: scan 6s linear infinite;
+        opacity: 0.3;
+      }
+      @keyframes scan {
+        0% {
+          top: -2px;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+      #particles {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+      .particle {
+        position: absolute;
+        border-radius: 50%;
+        animation: floatUp linear infinite;
+        opacity: 0;
+      }
+      @keyframes floatUp {
+        0% {
+          transform: translateY(100vh) translateX(0);
+          opacity: 0;
+        }
+        5% {
+          opacity: var(--op);
+        }
+        95% {
+          opacity: var(--op);
+        }
+        100% {
+          transform: translateY(-50px) translateX(var(--drift));
+          opacity: 0;
+        }
+      }
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 950px;
+      }
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(0, 200, 255, 0.08);
+        border: 1px solid rgba(0, 200, 255, 0.25);
+        color: var(--blue);
+        padding: 0.4rem 1.3rem;
+        border-radius: 100px;
+        font-size: 0.72rem;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: 2.5rem;
+        animation: fadeUp 0.7s ease both;
+      }
+      .badge-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--blue);
+        animation: blink 1.5s ease-in-out infinite;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.2;
+        }
+      }
+      .hero-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(4.5rem, 12vw, 10rem);
+        line-height: 0.88;
+        margin-bottom: 1.8rem;
+        animation: fadeUp 0.7s 0.1s ease both;
+      }
+      .hero-title .line1 {
+        display: block;
+        color: var(--text);
+        letter-spacing: 2px;
+      }
+      .hero-title .line2 {
+        display: block;
+        color: var(--blue);
+        letter-spacing: 4px;
+        text-shadow: 0 0 80px rgba(0, 200, 255, 0.3);
+      }
+      .hero-title .line3 {
+        display: block;
+        color: var(--gold);
+        letter-spacing: 3px;
+        font-size: clamp(2rem, 5vw, 4rem);
+      }
+      .hero-sub {
+        font-size: 1.15rem;
+        color: var(--muted);
+        font-weight: 300;
+        max-width: 620px;
+        margin: 0 auto 3.5rem;
+        line-height: 1.75;
+        animation: fadeUp 0.7s 0.2s ease both;
+      }
+      .hero-ctas {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        animation: fadeUp 0.7s 0.3s ease both;
+      }
+      .btn-primary {
+        background: var(--blue);
+        color: var(--bg);
+        padding: 0.9rem 2.2rem;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-family: "Outfit", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.2s;
+      }
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 40px rgba(0, 200, 255, 0.35);
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--text);
+        padding: 0.9rem 2.2rem;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        cursor: pointer;
+        font-family: "Outfit", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.2s;
+      }
+      .btn-ghost:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+      .scroll-prompt {
+        position: absolute;
+        bottom: 2.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        animation: fadeUp 0.7s 0.5s ease both;
+      }
+      .scroll-text {
+        font-size: 0.65rem;
+        letter-spacing: 3px;
+        color: var(--muted);
+        text-transform: uppercase;
+      }
+      .scroll-line {
+        width: 1px;
+        height: 45px;
+        background: linear-gradient(to bottom, transparent, var(--blue));
+        animation: pulse 2s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 0.3;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      /* STATS */
+      .stats-strip {
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .stat-item {
+        padding: 2.5rem 2rem;
+        text-align: center;
+        border-right: 1px solid var(--border);
+      }
+      .stat-item:last-child {
+        border-right: none;
+      }
+      .stat-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 3.8rem;
+        line-height: 1;
+        color: var(--blue);
+      }
+      .stat-num em {
+        color: var(--gold);
+        font-style: normal;
+      }
+      .stat-label {
+        font-size: 0.72rem;
+        color: var(--muted);
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-top: 0.4rem;
+        font-weight: 600;
+      }
+
+      /* SECTIONS */
+      .section {
+        padding: 7rem 5rem;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .s-tag {
+        font-size: 0.7rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: var(--blue);
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .s-tag::before {
+        content: "//";
+        opacity: 0.5;
+      }
+      .s-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(2.8rem, 5vw, 4.5rem);
+        line-height: 0.95;
+        margin-bottom: 1.2rem;
+        color: var(--text);
+      }
+      .s-title span {
+        color: var(--blue);
+      }
+      .s-title em {
+        color: var(--gold);
+        font-style: normal;
+      }
+      .s-desc {
+        color: var(--muted);
+        font-size: 1rem;
+        max-width: 580px;
+        line-height: 1.75;
+        margin-bottom: 4rem;
+      }
+
+      /* SERVICES */
+      #servicios {
+        background: var(--bg);
+      }
+      .srv-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+      .srv-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 2.2rem;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s;
+        cursor: default;
+      }
+      .srv-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse at 0% 0%,
+          rgba(0, 200, 255, 0.06),
+          transparent 60%
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .srv-card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--blue), rgba(0, 200, 255, 0));
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .srv-card:hover {
+        border-color: rgba(0, 200, 255, 0.35);
+        transform: translateY(-5px);
+        box-shadow:
+          0 25px 60px rgba(0, 0, 0, 0.5),
+          0 0 0 1px rgba(0, 200, 255, 0.1);
+      }
+      .srv-card:hover::before,
+      .srv-card:hover::after {
+        opacity: 1;
+      }
+      .srv-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1rem;
+        color: rgba(0, 200, 255, 0.25);
+        letter-spacing: 2px;
+        margin-bottom: 1.2rem;
+      }
+      .srv-icon {
+        font-size: 2.2rem;
+        margin-bottom: 1.5rem;
+        display: block;
+      }
+      .srv-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 0.7rem;
+      }
+      .srv-body {
+        color: var(--muted);
+        font-size: 0.88rem;
+        line-height: 1.65;
+      }
+      .srv-tag {
+        display: inline-block;
+        margin-top: 1.5rem;
+        background: rgba(0, 200, 255, 0.07);
+        border: 1px solid rgba(0, 200, 255, 0.15);
+        color: rgba(0, 200, 255, 0.7);
+        padding: 0.3rem 0.8rem;
+        border-radius: 100px;
+        font-size: 0.68rem;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+
+      /* EQUIPO */
+      #equipo {
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+      }
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1.2rem;
+      }
+      .team-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1.5rem 1.2rem;
+        text-align: center;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+      .team-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 120px;
+        background: radial-gradient(
+          ellipse at 50% 0%,
+          rgba(255, 183, 0, 0.06),
+          transparent 70%
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .team-card:hover {
+        border-color: var(--border-gold);
+        transform: translateY(-4px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      }
+      .team-card:hover::before {
+        opacity: 1;
+      }
+      .team-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin: 0 auto 1rem;
+        overflow: hidden;
+        border: 2px solid var(--border-gold);
+        background: var(--card2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      .team-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .team-initials {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.8rem;
+        color: var(--gold);
+        opacity: 0.7;
+      }
+      .team-name {
+        font-size: 0.88rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 0.25rem;
+      }
+      .team-role {
+        font-size: 0.7rem;
+        color: var(--muted);
+        letter-spacing: 0.5px;
+        font-weight: 500;
+      }
+      .team-badge {
+        display: inline-block;
+        margin-top: 0.6rem;
+        background: rgba(255, 183, 0, 0.08);
+        border: 1px solid rgba(255, 183, 0, 0.15);
+        color: rgba(255, 183, 0, 0.6);
+        padding: 0.15rem 0.6rem;
+        border-radius: 100px;
+        font-size: 0.58rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+      .upload-zone {
+        margin-top: 3rem;
+        padding: 2rem;
+        border: 1.5px dashed rgba(0, 200, 255, 0.2);
+        border-radius: 16px;
+        text-align: center;
+        cursor: pointer;
+        transition:
+          border-color 0.3s,
+          background 0.3s;
+      }
+      .upload-zone:hover {
+        border-color: rgba(0, 200, 255, 0.5);
+        background: rgba(0, 200, 255, 0.03);
+      }
+      .upload-zone p {
+        color: var(--muted);
+        font-size: 0.88rem;
+        margin-top: 0.5rem;
+      }
+      .upload-zone strong {
+        color: var(--blue);
+      }
+      .upload-icon {
+        font-size: 2rem;
+        opacity: 0.4;
+        margin-bottom: 0.5rem;
+      }
+
+      /* MUNDIALES */
+      #mundiales {
+        background: var(--bg);
+        border-top: 1px solid var(--border);
+        padding: 7rem 0;
+        overflow: hidden;
+      }
+      #mundiales .header-wrap {
+        padding: 0 5rem;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .mundial-scroller-wrap {
+        position: relative;
+        margin-top: 1rem;
+      }
+      .mundial-scroller-wrap::before,
+      .mundial-scroller-wrap::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 80px;
+        z-index: 10;
+        pointer-events: none;
+      }
+      .mundial-scroller-wrap::before {
+        left: 0;
+        background: linear-gradient(to right, var(--bg), transparent);
+      }
+      .mundial-scroller-wrap::after {
+        right: 0;
+        background: linear-gradient(to left, var(--bg), transparent);
+      }
+      .mundial-track {
+        display: flex;
+        gap: 1.2rem;
+        overflow-x: auto;
+        padding: 1.5rem 5rem 2.5rem;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(0, 200, 255, 0.15) transparent;
+        cursor: grab;
+        user-select: none;
+      }
+      .mundial-track:active {
+        cursor: grabbing;
+      }
+      .m-card {
+        flex: 0 0 240px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1.6rem;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s;
+        cursor: default;
+      }
+      .m-card:hover {
+        border-color: rgba(0, 200, 255, 0.3);
+        transform: translateY(-4px);
+      }
+      .m-card.playing {
+        border-color: var(--gold);
+        background: rgba(255, 183, 0, 0.04);
+      }
+      .m-card.upcoming {
+        border-color: rgba(255, 183, 0, 0.1);
+        background: rgba(255, 183, 0, 0.02);
+      }
+      .m-card-glow {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse at 50% 0%,
+          rgba(0, 200, 255, 0.06),
+          transparent 60%
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .m-card-glow {
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .m-year,
+      .m-country,
+      .m-song,
+      .m-artist,
+      .m-play,
+      .m-upcoming-badge {
+        position: relative;
+        z-index: 2;
+      }
+
+      .m-card::after {
+        pointer-events: none;
+      }
+
+      .waveform {
+        z-index: 3;
+        pointer-events: none;
+      }
+      .m-card:hover .m-card-glow {
+        opacity: 1;
+      }
+      .m-card.playing .m-card-glow {
+        background: radial-gradient(
+          ellipse at 50% 0%,
+          rgba(255, 183, 0, 0.08),
+          transparent 60%
+        );
+        opacity: 1;
+      }
+      .m-year {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 3.8rem;
+        line-height: 1;
+        color: var(--blue);
+        margin-bottom: 0.1rem;
+        transition: color 0.3s;
+      }
+      .m-card.playing .m-year {
+        color: var(--gold);
+      }
+      .m-card.upcoming .m-year {
+        color: rgba(255, 183, 0, 0.5);
+      }
+      .m-country {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 1.3rem;
+      }
+      .m-flag {
+        font-size: 1.3rem;
+      }
+      .m-pais {
+        font-size: 0.72rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-weight: 700;
+      }
+      .m-song {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 0.35rem;
+        line-height: 1.3;
+      }
+      .m-card.playing .m-song {
+        color: var(--gold);
+      }
+      .m-artist {
+        font-size: 0.75rem;
+        color: var(--muted);
+        margin-bottom: 1.5rem;
+        line-height: 1.4;
+      }
+      .m-play {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(0, 200, 255, 0.08);
+        border: 1px solid rgba(0, 200, 255, 0.2);
+        border-radius: 100px;
+        padding: 0.45rem 1rem;
+        color: var(--blue);
+        font-size: 0.72rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-decoration: none;
+        font-family: "Outfit", sans-serif;
+        letter-spacing: 0.5px;
+      }
+      .m-play:hover {
+        background: rgba(0, 200, 255, 0.18);
+        border-color: var(--blue);
+        transform: scale(1.05);
+      }
+      .m-card.playing .m-play {
+        background: rgba(255, 183, 0, 0.1);
+        border-color: rgba(255, 183, 0, 0.4);
+        color: var(--gold);
+      }
+      .waveform {
+        position: absolute;
+        top: 1.4rem;
+        right: 1.4rem;
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        height: 20px;
+      }
+      .waveform b {
+        display: block;
+        width: 3px;
+        border-radius: 2px;
+        background: var(--gold);
+        font-weight: normal;
+        animation: wv 0.9s ease-in-out infinite;
+      }
+      .waveform b:nth-child(1) {
+        height: 6px;
+        animation-delay: 0s;
+      }
+      .waveform b:nth-child(2) {
+        height: 14px;
+        animation-delay: 0.12s;
+      }
+      .waveform b:nth-child(3) {
+        height: 20px;
+        animation-delay: 0.24s;
+      }
+      .waveform b:nth-child(4) {
+        height: 14px;
+        animation-delay: 0.36s;
+      }
+      .waveform b:nth-child(5) {
+        height: 6px;
+        animation-delay: 0.48s;
+      }
+      @keyframes wv {
+        0%,
+        100% {
+          transform: scaleY(0.4);
+        }
+        50% {
+          transform: scaleY(1.1);
+        }
+      }
+      .m-upcoming-badge {
+        font-size: 0.75rem;
+        color: rgba(255, 183, 0, 0.5);
+        font-style: italic;
+        font-weight: 500;
+      }
+      .m-card.arg78,
+      .m-card.arg86 {
+        border-color: rgba(116, 172, 228, 0.35);
+        background: linear-gradient(
+          135deg,
+          rgba(74, 144, 226, 0.06),
+          rgba(255, 255, 255, 0.02)
+        );
+      }
+      .m-card.arg22 {
+        border-color: rgba(116, 172, 228, 0.45);
+        background: linear-gradient(
+          135deg,
+          rgba(74, 144, 226, 0.08),
+          rgba(255, 183, 0, 0.04)
+        );
+      }
+      .m-card.arg78::after,
+      .m-card.arg86::after,
+      .m-card.arg22::after {
+        content: "🏆 CAMPEÓN";
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 0.55rem;
+        letter-spacing: 1px;
+        color: var(--gold);
+        font-weight: 800;
+        background: rgba(255, 183, 0, 0.1);
+        border: 1px solid rgba(255, 183, 0, 0.3);
+        border-radius: 100px;
+        padding: 2px 7px;
+      }
+
+      /* ABOUT */
+      #about {
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+      }
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: center;
+      }
+      .about-feature {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1.3rem;
+      }
+      .about-feature-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: rgba(0, 200, 255, 0.08);
+        border: 1px solid rgba(0, 200, 255, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        flex-shrink: 0;
+      }
+      .about-feature-text p {
+        font-size: 0.85rem;
+        color: var(--muted);
+        line-height: 1.5;
+        margin-top: 0.2rem;
+      }
+      .about-feature-text strong {
+        font-size: 0.9rem;
+        color: var(--text);
+        font-weight: 700;
+      }
+      .about-visual {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 2.5rem;
+        position: relative;
+      }
+      .tech-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+      }
+      .tech-tag {
+        background: var(--card2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .tech-tag:hover {
+        border-color: var(--blue);
+        color: var(--blue);
+      }
+      .tech-tag em {
+        font-style: normal;
+        font-size: 1.1rem;
+      }
+
+      /* CONTACTO */
+      #contacto {
+        background: var(--bg);
+        border-top: 1px solid var(--border);
+        padding: 7rem 5rem;
+        text-align: center;
+      }
+      .contact-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        max-width: 750px;
+        margin: 3.5rem auto 0;
+      }
+      .c-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 1.8rem;
+        transition: all 0.3s;
+      }
+      .c-card:hover {
+        border-color: rgba(0, 200, 255, 0.3);
+        transform: translateY(-3px);
+      }
+      .c-icon {
+        font-size: 1.8rem;
+        margin-bottom: 0.8rem;
+        display: block;
+      }
+      .c-label {
+        font-size: 0.65rem;
+        color: var(--muted);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: 0.4rem;
+      }
+      .c-value {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      /* FOOTER */
+      footer {
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        padding: 2rem 5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .footer-logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.5rem;
+        letter-spacing: 3px;
+        color: var(--muted);
+      }
+      .footer-logo em {
+        color: var(--blue);
+        font-style: normal;
+      }
+      .footer-mid {
+        font-size: 0.78rem;
+        color: var(--muted);
+        text-align: center;
+      }
+      .footer-right {
+        font-size: 0.78rem;
+        color: var(--muted);
+      }
+
+      /* ANIMS */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .fade-in {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 0.65s ease,
+          transform 0.65s ease;
+      }
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .delay-1 {
+        transition-delay: 0.1s;
+      }
+      .delay-2 {
+        transition-delay: 0.2s;
+      }
+      .delay-3 {
+        transition-delay: 0.3s;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 1200px) {
+        .team-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+      @media (max-width: 1100px) {
+        .srv-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .team-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .about-grid {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+        }
+        .section {
+          padding: 6rem 3rem;
+        }
+        #contacto {
+          padding: 6rem 3rem;
+        }
+        #mundiales .header-wrap {
+          padding: 0 3rem;
+        }
+        .mundial-track {
+          padding: 1.5rem 3rem 2.5rem;
+        }
+      }
+      @media (max-width: 768px) {
+        nav {
+          padding: 0.9rem 1.5rem;
+        }
+        nav.scrolled {
+          padding: 0.7rem 1.5rem;
+        }
+        .nav-links {
+          display: none;
+        }
+        .stats-strip {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .stat-item {
+          border-bottom: 1px solid var(--border);
+        }
+        .srv-grid {
+          grid-template-columns: 1fr;
+        }
+        .team-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .section {
+          padding: 4rem 1.5rem;
+        }
+        #contacto {
+          padding: 4rem 1.5rem;
+        }
+        .contact-cards {
+          grid-template-columns: 1fr;
+        }
+        #mundiales .header-wrap {
+          padding: 0 1.5rem;
+        }
+        .mundial-track {
+          padding: 1rem 1.5rem 2rem;
+        }
+        footer {
+          padding: 2rem 1.5rem;
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav id="navbar">
+      <div class="nav-logo">GRASSI<span class="dot">·</span><em>IT</em></div>
+      <ul class="nav-links">
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#equipo">Equipo</a></li>
+        <li><a href="#about">Nosotros</a></li>
+        <li><a href="#mundiales">Mundiales</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <a href="#contacto" class="nav-cta">Contactar</a>
+    </nav>
+
+    <section id="hero">
+      <div class="hero-grid"></div>
+      <div class="hero-glow"></div>
+      <div class="hero-scan"></div>
+      <div id="particles"></div>
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>Sector Tecnología &nbsp;·&nbsp; Grassi
+          &nbsp;·&nbsp; Rosario
+        </div>
+        <h1 class="hero-title">
+          <span class="line1">SOMOS</span>
+          <span class="line2">TECNOLOGÍA</span>
+          <span class="line3">al servicio de Grassi</span>
+        </h1>
+        <p class="hero-sub">
+          Diseñamos, desarrollamos y sostenemos la infraestructura digital que
+          hace posible cada proyecto de la empresa. Innovación, seguridad y
+          soporte — todo en un equipo.
+        </p>
+        <div class="hero-ctas">
+          <a href="#servicios" class="btn-primary">Ver qué hacemos</a>
+          <a href="#mundiales" class="btn-ghost">🎵 Mundiales</a>
+        </div>
+      </div>
+      <div class="scroll-prompt">
+        <div class="scroll-line"></div>
+        <span class="scroll-text">Scroll</span>
+      </div>
+    </section>
+
+    <div class="stats-strip fade-in" id="stats-strip">
+      <div class="stat-item">
+        <div class="stat-num" id="s1">0<em>+</em></div>
+        <div class="stat-label">Años de experiencia</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" id="s2">0<em>+</em></div>
+        <div class="stat-label">Usuarios atendidos</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" id="s3">0<em>%</em></div>
+        <div class="stat-label">Uptime garantizado</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" id="s4">0<em>/7</em></div>
+        <div class="stat-label">Soporte técnico</div>
+      </div>
+    </div>
+
+    <div id="servicios">
+      <div class="section">
+        <div class="fade-in">
+          <div class="s-tag">¿Qué hacemos?</div>
+          <h2 class="s-title">NUESTROS <span>SERVICIOS</span></h2>
+          <p class="s-desc">
+            El sector IT de Grassi cubre todas las necesidades tecnológicas de
+            la organización, desde la infraestructura base hasta el desarrollo
+            de soluciones a medida.
+          </p>
+        </div>
+        <div class="srv-grid">
+          <div class="srv-card fade-in delay-1">
+            <div class="srv-num">01</div>
+            <span class="srv-icon">🌐</span>
+            <div class="srv-title">Infraestructura & Redes</div>
+            <div class="srv-body">
+              Diseño, implementación y mantenimiento de redes corporativas,
+              servidores y sistemas de conectividad que sustentan toda la
+              operación diaria de Grassi.
+            </div>
+            <div class="srv-tag">Core IT</div>
+          </div>
+          <div class="srv-card fade-in delay-2">
+            <div class="srv-num">02</div>
+            <span class="srv-icon">💻</span>
+            <div class="srv-title">Desarrollo de Software</div>
+            <div class="srv-body">
+              Creamos aplicaciones y sistemas a medida que optimizan procesos
+              internos: gestión de proyectos, automatización de tareas y
+              herramientas de reporting avanzado.
+            </div>
+            <div class="srv-tag">Dev</div>
+          </div>
+          <div class="srv-card fade-in delay-3">
+            <div class="srv-num">03</div>
+            <span class="srv-icon">🛡️</span>
+            <div class="srv-title">Ciberseguridad</div>
+            <div class="srv-body">
+              Protegemos los activos digitales de Grassi mediante políticas de
+              seguridad robustas, monitoreo continuo, capacitaciones y respuesta
+              rápida ante incidentes.
+            </div>
+            <div class="srv-tag">Security</div>
+          </div>
+          <div class="srv-card fade-in delay-1">
+            <div class="srv-num">04</div>
+            <span class="srv-icon">☁️</span>
+            <div class="srv-title">Cloud & Virtualización</div>
+            <div class="srv-body">
+              Administración de entornos cloud, virtualización de servidores y
+              estrategias de backup para garantizar disponibilidad y
+              escalabilidad de los datos.
+            </div>
+            <div class="srv-tag">Cloud</div>
+          </div>
+          <div class="srv-card fade-in delay-2">
+            <div class="srv-num">05</div>
+            <span class="srv-icon">📊</span>
+            <div class="srv-title">Datos & Analítica</div>
+            <div class="srv-body">
+              Transformamos datos en decisiones: dashboards interactivos,
+              reportes automatizados y soluciones de Business Intelligence para
+              toda la organización.
+            </div>
+            <div class="srv-tag">Analytics</div>
+          </div>
+          <div class="srv-card fade-in delay-3">
+            <div class="srv-num">06</div>
+            <span class="srv-icon">🎧</span>
+            <div class="srv-title">Soporte Técnico</div>
+            <div class="srv-body">
+              Atención personalizada a todos los usuarios de Grassi. Mesa de
+              ayuda, resolución de incidentes y capacitaciones tecnológicas
+              continuas.
+            </div>
+            <div class="srv-tag">Support</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="equipo">
+      <div class="section">
+        <div class="fade-in">
+          <div class="s-tag">Las personas detrás del código</div>
+          <h2 class="s-title">NUESTRO <em>EQUIPO</em></h2>
+          <p class="s-desc">
+            Un equipo apasionado por la tecnología, comprometido con el
+            crecimiento de Grassi y siempre listo para el próximo desafío.
+          </p>
+        </div>
+        <div class="team-grid fade-in" id="teamGrid"></div>
+      </div>
+    </section>
+
+    <div id="about">
+      <div class="section">
+        <div class="about-grid">
+          <div class="about-text fade-in">
+            <div class="s-tag">Nuestra historia</div>
+            <h2 class="s-title">¿POR QUÉ <span>GRASSI IT</span>?</h2>
+            <p class="s-desc" style="margin-bottom: 2rem">
+              Somos el motor silencioso que hace que todo funcione. Cada
+              sistema, cada conexión, cada dato seguro — detrás hay un equipo
+              comprometido con la excelencia tecnológica.
+            </p>
+            <div class="about-feature">
+              <div class="about-feature-icon">🎯</div>
+              <div class="about-feature-text">
+                <strong>Enfoque en el negocio</strong>
+                <p>
+                  Entendemos que la tecnología debe estar al servicio de los
+                  objetivos de Grassi, no al revés.
+                </p>
+              </div>
+            </div>
+            <div class="about-feature">
+              <div class="about-feature-icon">⚡</div>
+              <div class="about-feature-text">
+                <strong>Respuesta ágil</strong>
+                <p>
+                  Resolvemos incidentes rápidamente para que el negocio nunca se
+                  detenga.
+                </p>
+              </div>
+            </div>
+            <div class="about-feature">
+              <div class="about-feature-icon">🔒</div>
+              <div class="about-feature-text">
+                <strong>Seguridad primero</strong>
+                <p>
+                  La protección de los datos y sistemas de Grassi es nuestra
+                  responsabilidad número uno.
+                </p>
+              </div>
+            </div>
+            <div class="about-feature">
+              <div class="about-feature-icon">🌱</div>
+              <div class="about-feature-text">
+                <strong>Innovación constante</strong>
+                <p>
+                  Nos capacitamos continuamente para traer las mejores
+                  soluciones tecnológicas a la organización.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="about-visual fade-in delay-2">
+            <div class="s-tag" style="margin-bottom: 1.5rem">
+              Stack tecnológico
+            </div>
+            <div class="tech-stack" id="techStack"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="mundiales">
+      <div class="header-wrap fade-in">
+        <div class="s-tag">🏆 Soundtrack del fútbol mundial</div>
+        <h2 class="s-title">MÚSICA DE <span>MUNDIALES</span></h2>
+        <p class="s-desc">
+          Desde Argentina '78 hasta hoy — los temas que marcaron cada Copa del
+          Mundo. Hacé click en ▶ para escuchar en YouTube. ¡Arrastrá para
+          explorar!
+        </p>
+      </div>
+      <div class="mundial-scroller-wrap">
+        <div class="mundial-track" id="mundialTrack"></div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="fade-in">
+        <div class="s-tag" style="justify-content: center">
+          Estamos para ayudarte
+        </div>
+        <h2 class="s-title">CONTACTÁ AL <span>EQUIPO DE SISTEMAS</span></h2>
+        <p
+          style="
+            color: var(--muted);
+            font-size: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.75;
+          "
+        >
+          ¿Tenés un problema técnico, una idea o un proyecto? El equipo de
+          SISTEMAS de Grassi está listo para ayudarte.
+        </p>
+        <div class="contact-cards">
+          <div class="c-card">
+            <span class="c-icon">📧</span>
+            <div class="c-label">Email</div>
+            <div class="c-value">mesadeayuda@ggsa.com.ar</div>
+          </div>
+          <div class="c-card">
+            <span class="c-icon">☎️</span>
+            <div class="c-label">Interno</div>
+            <div class="c-value">Interno 212</div>
+          </div>
+          <div class="c-card">
+            <span class="c-icon">📍</span>
+            <div class="c-label">Ubicación</div>
+            <div class="c-value">Rosario, Santa Fe</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-logo">GRASSI·<em>IT</em></div>
+      <div class="footer-mid">
+        © 2026 Sector IT Grassi · Tecnología al servicio del negocio
+      </div>
+      <div class="footer-right">🏆 Siempre con el Mundial de fondo</div>
+    </footer>
+
+    <script>
+      const teamData = [
+        { name: "Luciano Baetti", role: "Gerente de IT", dept: "Management" },
+        {
+          name: "Juan Pablo Martinez",
+          role: "Coordinador IT/Gravanz",
+          dept: "Management",
+        },
+        {
+          name: "Juan San Juan",
+          role: "Infraestructura & Redes",
+          dept: "Infra",
+        },
+        {
+          name: "Emanuel Alcántara",
+          role: "Soporte Técnico / Gravanz",
+          dept: "Support",
+        },
+        {
+          name: "Mariano López",
+          role: "Infraestructura / Soporte Técnico",
+          dept: "Infra",
+        },
+        {
+          name: "Cesar Castagno",
+          role: "Analista de Datos",
+          dept: "Analytics",
+        },
+        {
+          name: "Alejandro Martorell",
+          role: "DevOps / Referente Técnico NT",
+          dept: "NT",
+        },
+        {
+          name: "Damian Giampani",
+          role: "Analista Funcional",
+          dept: "Analist",
+        },
+        { name: "Luciano Cabello", role: "Soporte / Gravanz", dept: "Support" },
+        { name: "Macarena Singh", role: "Diseñadora UX/UI", dept: "NT" },
+        {
+          name: "Mauricio Silva",
+          role: "Desarrollador Back End",
+          dept: "Analist",
+        },
+        {
+          name: "Tomás Pascual",
+          role: "Desarrollador Front End",
+          dept: "Analist",
+        },
+        {
+          name: "Juan Ignacio Montrasi",
+          role: "Desarrollador Front End",
+          dept: "Analist",
+        },
+        {
+          name: "Mattia Bagni",
+          role: "Desarrollador Front End",
+          dept: "Analist",
+        },
+        {
+          name: "Juan Esteban Morell",
+          role: "Analista de Datos",
+          dept: "Analist",
+        },
+      ];
+
+      const deptColors = {
+        Management: "#FFB700",
+        Dev: "#00C8FF",
+        Infra: "#00E5CC",
+        Support: "#A78BFA",
+        Security: "#F87171",
+        Analytics: "#34D399",
+        Cloud: "#60A5FA",
+        NT: "#F472B6",
+        Analist: "#818CF8",
+      };
+
+      // Mapeo de imágenes por nombre
+      const teamPhotos = {
+        0: "./assets/Baetti.jpeg", // Luciano Baetti
+        1: "./assets/Martinez.jpeg", // Juan Pablo Martinez
+        2: "./assets/SanJuan.jpeg", // Juan San Juan
+        3: "./assets/Alcantara.jpeg", // Emanuel Alcántara
+        4: "./assets/Lopez.jpeg", // Mariano López
+        5: "./assets/Castagno.jpeg", // Cesar Castagno
+        6: "./assets/Marto.png", // Alejandro Martorell
+        7: "./assets/Chadpani.png", // Damian Giampani
+        8: "./assets/Cabello.jpeg", // Luciano Cabello
+        9: "./assets/Singh.jpeg", // Macarena Singh
+        10: "./assets/Silva.png", // Mauricio Silva
+        11: "./assets/Pascual.png", // Tomás Pascual
+        12: "./assets/Montrassi.jpeg", // Juan Ignacio Montrasi
+        13: "./assets/Matti.png", // Mattia Bagni
+        14: "./assets/Morelli.png", // Juan Esteban Morell
+      };
+
+      function buildTeamGrid() {
+        const grid = document.getElementById("teamGrid");
+        grid.innerHTML = "";
+        teamData.forEach((m, i) => {
+          const color = deptColors[m.dept] || "#00C8FF";
+          const initials = m.name
+            .split(" ")
+            .map((w) => w[0])
+            .join("")
+            .slice(0, 2)
+            .toUpperCase();
+          const hasPhoto = !!teamPhotos[i];
+          const card = document.createElement("div");
+          card.className = "team-card";
+          card.innerHTML = `
+      <div class="team-avatar" style="border-color:${color}30; cursor:pointer;" title="Click para subir foto">
+        ${hasPhoto ? `<img src="${teamPhotos[i]}" alt="${m.name}">` : `<div class="team-initials" style="color:${color};opacity:0.8">${initials}</div>`}
+      </div>
+      <div class="team-name">${m.name}</div>
+      <div class="team-role">${m.role}</div>
+      <div class="team-badge" style="background:${color}15;border-color:${color}25;color:${color}cc;">${m.dept}</div>
+    `;
+          card.querySelector(".team-avatar").addEventListener("click", () => {
+            const input = document.createElement("input");
+            input.type = "file";
+            input.accept = "image/*";
+            input.onchange = (e) => {
+              const reader = new FileReader();
+              reader.onload = (ev) => {
+                teamPhotos[i] = ev.target.result;
+                buildTeamGrid();
+              };
+              reader.readAsDataURL(e.target.files[0]);
+            };
+            input.click();
+          });
+          grid.appendChild(card);
+        });
+      }
+      buildTeamGrid();
+
+      const techs = [
+        { em: "🖥️", label: "Windows Server" },
+        { em: "🐧", label: "Linux" },
+        { em: "🔧", label: "VMware" },
+        { em: "☁️", label: "Microsoft 365" },
+        { em: "🛡️", label: "Fortinet" },
+        { em: "🌐", label: "Cisco" },
+        { em: "📊", label: "Power BI" },
+        { em: "🐍", label: "Python" },
+        { em: "⚡", label: "Node.js" },
+        { em: "🗄️", label: "SQL Server" },
+        { em: "🐳", label: "Docker" },
+        { em: "🔵", label: "Azure" },
+        { em: "📡", label: "Active Directory" },
+        { em: "💾", label: "Veeam Backup" },
+      ];
+      const stack = document.getElementById("techStack");
+      techs.forEach((t) => {
+        const el = document.createElement("div");
+        el.className = "tech-tag";
+        el.innerHTML = `<em>${t.em}</em>${t.label}`;
+        stack.appendChild(el);
+      });
+
+      const mundiales = [
+        {
+          year: 1978,
+          pais: "Argentina",
+          flag: "🇦🇷",
+          song: "25 Millones de Argentinos",
+          artist: "Palito Ortega",
+          ytUrl:
+            "https://www.youtube.com/watch?v=HUJyQSqW3z8&list=RDHUJyQSqW3z8&start_radio=1",
+          special: "arg78",
+        },
+        {
+          year: 1982,
+          pais: "España",
+          flag: "🇪🇸",
+          song: "El Mundo Unido por un Balón",
+          artist: "Naranjito (tema oficial España 82)",
+          ytUrl:
+            "https://www.youtube.com/watch?v=hbWYeC9L8TU&list=RDhbWYeC9L8TU&start_radio=1",
+        },
+        {
+          year: 1986,
+          pais: "México",
+          flag: "🇲🇽",
+          song: "A Ganar",
+          artist: "Plácido Domingo",
+          ytUrl: "https://www.youtube.com/watch?v=3eDZV-p9DiI",
+          special: "arg86",
+        },
+        {
+          year: 1990,
+          pais: "Italia",
+          flag: "🇮🇹",
+          song: "Un'estate italiana",
+          artist: "Gianna Nannini & Edoardo Bennato",
+          ytUrl:
+            "https://www.youtube.com/watch?v=cgQmyNUeEfI&list=RDcgQmyNUeEfI&start_radio=1",
+        },
+        {
+          year: 1994,
+          pais: "Estados Unidos",
+          flag: "🇺🇸",
+          song: "Gloryland",
+          artist: "Daryl Hall & Sounds of Blackness",
+          ytUrl:
+            "https://www.youtube.com/watch?v=Bp5ejoQhjtU&list=RDBp5ejoQhjtU&start_radio=1",
+        },
+        {
+          year: 1998,
+          pais: "Francia",
+          flag: "🇫🇷",
+          song: "La Copa de la Vida",
+          artist: "Ricky Martin",
+          ytUrl:
+            "https://www.youtube.com/watch?v=8BkYKwHLXiU&list=RD8BkYKwHLXiU&start_radio=1",
+        },
+        {
+          year: 2002,
+          pais: "Corea & Japón",
+          flag: "🇰🇷🇯🇵",
+          song: "Anthem",
+          artist: "Vangelis",
+          ytUrl:
+            "https://www.youtube.com/watch?v=iWMx50u64d4&list=RDiWMx50u64d4&start_radio=1",
+        },
+        {
+          year: 2006,
+          pais: "Alemania",
+          flag: "🇩🇪",
+          song: "The Time of Our Lives",
+          artist: "Il Divo & Toni Braxton",
+          ytUrl:
+            "https://www.youtube.com/watch?v=4aOxDHqWyK0&list=RD4aOxDHqWyK0&start_radio=1",
+        },
+        {
+          year: 2010,
+          pais: "Sudáfrica",
+          flag: "🇿🇦",
+          song: "Wavin' Flag",
+          artist: "K'naan (Coca-Cola Celebration Mix)",
+          ytUrl:
+            "https://www.youtube.com/watch?v=M8lDSSh19gk&list=RDM8lDSSh19gk&start_radio=1",
+        },
+        {
+          year: 2014,
+          pais: "Brasil",
+          flag: "🇧🇷",
+          song: "We Are One (Ole Ola)",
+          artist: "Pitbull ft. Jennifer Lopez & Claudia Leitte",
+          ytUrl:
+            "https://www.youtube.com/watch?v=TGtWWb9emYI&list=RDTGtWWb9emYI&start_radio=1",
+        },
+        {
+          year: 2018,
+          pais: "Rusia",
+          flag: "🇷🇺",
+          song: "Live It Up",
+          artist: "Nicky Jam ft. Will Smith & Era Istrefi",
+          ytUrl:
+            "https://www.youtube.com/watch?v=kQT1eJGbOnQ&list=RDkQT1eJGbOnQ&start_radio=1",
+        },
+        {
+          year: 2022,
+          pais: "Qatar",
+          flag: "🇶🇦",
+          song: "Hayya Hayya (Better Together)",
+          artist: "Trinidad Cardona, Davido & Aisha",
+          ytUrl:
+            "https://www.youtube.com/watch?v=vyDjFVZgJoo&list=RDvyDjFVZgJoo&start_radio=1",
+          special: "arg22",
+        },
+        {
+          year: 2026,
+          pais: "USA · CAN · MEX",
+          flag: "🇺🇸🇨🇦🇲🇽",
+          song: "¡El próximo Mundial!",
+          artist: "Próximamente...",
+          upcoming: true,
+        },
+      ];
+
+      const track = document.getElementById("mundialTrack");
+      let currentPlaying = -1;
+      mundiales.forEach((m, i) => {
+        const ytUrl =
+          m.ytUrl ||
+          `https://www.youtube.com/results?search_query=${encodeURIComponent(m.song)}`;
+        const card = document.createElement("div");
+        let classes = "m-card";
+        if (m.special) classes += " " + m.special;
+        if (m.upcoming) classes += " upcoming";
+        card.className = classes;
+
+        const cardHTML = document.createElement("div");
+        cardHTML.innerHTML = `
+          <div class="m-card-glow"></div>
+          <div class="m-year">${m.year}</div>
+          <div class="m-country"><span class="m-flag">${m.flag}</span><span class="m-pais">${m.pais}</span></div>
+          <div class="m-song">${m.song}</div>
+          <div class="m-artist">${m.artist}</div>
+          ${!m.upcoming ? `<div class="m-upcoming-badge"></div>` : `<div class="m-upcoming-badge">✨ Próximamente...</div>`}
+        `;
+
+        while (cardHTML.firstChild) {
+          card.appendChild(cardHTML.firstChild);
+        }
+
+        // Si no es próximo, agregar botón con listener directo
+        if (!m.upcoming) {
+          const btn = document.createElement("a");
+          btn.className = "m-play";
+          btn.href = ytUrl;
+          btn.target = "_blank";
+          btn.rel = "noopener noreferrer";
+          btn.textContent = "▶ Escuchar";
+
+          btn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            selectCard(i);
+          });
+
+          card.appendChild(btn);
+        }
+
+        track.appendChild(card);
+      });
+
+      function selectCard(i) {
+        document.querySelectorAll(".m-card").forEach((c) => {
+          c.classList.remove("playing");
+          const wf = c.querySelector(".waveform");
+          if (wf) wf.remove();
+        });
+        const card = track.children[i];
+        if (!card) return;
+        card.classList.add("playing");
+        const wf = document.createElement("div");
+        wf.className = "waveform";
+        wf.innerHTML = "<b></b><b></b><b></b><b></b><b></b>";
+        card.prepend(wf);
+      }
+
+      let isDown = false,
+        startX,
+        scrollLeft;
+      track.addEventListener("mousedown", (e) => {
+        const target = e.target;
+        const playLink =
+          target && target.closest ? target.closest(".m-play") : null;
+        if (playLink) return;
+        isDown = true;
+        startX = e.pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+        track.style.cursor = "grabbing";
+      });
+      ["mouseleave", "mouseup"].forEach((ev) =>
+        track.addEventListener(ev, () => {
+          isDown = false;
+          track.style.cursor = "grab";
+        }),
+      );
+      track.addEventListener("mousemove", (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        track.scrollLeft =
+          scrollLeft - (e.pageX - track.offsetLeft - startX) * 1.8;
+      });
+
+      const pc = document.getElementById("particles");
+      for (let i = 0; i < 30; i++) {
+        const p = document.createElement("div");
+        p.className = "particle";
+        const isGold = Math.random() > 0.6,
+          size = Math.random() * 3 + 1;
+        p.style.cssText = `left:${Math.random() * 100}%;width:${size}px;height:${size}px;background:${isGold ? "rgba(255,183,0,0.5)" : "rgba(0,200,255,0.5)"};animation-duration:${Math.random() * 12 + 7}s;animation-delay:${Math.random() * 10}s;--drift:${Math.random() * 120 - 60}px;--op:${Math.random() * 0.6 + 0.2};`;
+        pc.appendChild(p);
+      }
+
+      window.addEventListener(
+        "scroll",
+        () => {
+          document
+            .getElementById("navbar")
+            .classList.toggle("scrolled", window.scrollY > 60);
+        },
+        { passive: true },
+      );
+
+      const io = new IntersectionObserver(
+        (entries) =>
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add("visible");
+          }),
+        { threshold: 0.08 },
+      );
+      document.querySelectorAll(".fade-in").forEach((el) => io.observe(el));
+
+      const targets = [12, 200, 99, 24],
+        suffixes = ["+", "+", "%", "/7"],
+        ids = ["s1", "s2", "s3", "s4"];
+      let counted = false;
+      new IntersectionObserver(
+        (entries) => {
+          if (!entries[0].isIntersecting || counted) return;
+          counted = true;
+          ids.forEach((id, i) => {
+            const el = document.getElementById(id),
+              tgt = targets[i],
+              suf = suffixes[i];
+            let cur = 0,
+              step = tgt / 50;
+            const timer = setInterval(() => {
+              cur = Math.min(cur + step, tgt);
+              el.innerHTML = Math.round(cur) + `<em>${suf}</em>`;
+              if (cur >= tgt) clearInterval(timer);
+            }, 20);
+          });
+        },
+        { threshold: 0.4 },
+      ).observe(document.getElementById("stats-strip"));
+
+      document.querySelectorAll('a[href^="#"]').forEach((a) => {
+        a.addEventListener("click", (e) => {
+          const target = document.querySelector(a.getAttribute("href"));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: "smooth" });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
